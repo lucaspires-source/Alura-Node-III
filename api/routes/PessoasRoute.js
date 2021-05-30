@@ -1,19 +1,24 @@
-const {Router}  = require('express')
+const { Router } = require('express')
 const PessoaController = require('../controllers/PessoaController')
 
 const router = Router()
 
-router.get('/pessoas/todas',PessoaController.pegaTodasAsPessoas)
+router
+  .get('/pessoas', PessoaController.pegaPessoasAtivas)
+  .get('/pessoas/todos', PessoaController.pegaTodasAsPessoas)
+  .get('/pessoas/:id', PessoaController.pegaUmaPessoa)
+  .get('/pessoas/:estudanteId/matricula/:matriculaId',  PessoaController.pegaUmaMatricula)
+  .get('/pessoas/:estudanteId/matricula', PessoaController.pegaMatriculas)
+  .get('/pessoas/matricula/:turmaId/confirmadas', PessoaController.pegaMatriculasPorTurma)
+  .get('/pessoas/matricula/lotada', PessoaController.pegaTurmasLotadas)
+  .post('/pessoas', PessoaController.criaPessoa)
+  .post('/pessoas/:estudanteId/matricula', PessoaController.criaMatricula)
+  .post('/pessoas/:id/restaura', PessoaController.restauraPessoa)
+  .post('/pessoas/:estudanteId/matricula/:matriculaId/restaura', PessoaController.restauraMatricula)
+  .put('/pessoas/:id', PessoaController.atualizaPessoa)
+  .put('/pessoas/:estudanteId/matricula/:matriculaId',  PessoaController.atualizaMatricula)
+  .delete('/pessoas/:id', PessoaController.apagaPessoa)
+  .delete('/pessoas/:estudanteId/matricula/:matriculaId',  PessoaController.apagaMatricula)
 
-router.get('/pessoas',PessoaController.pegaPessoasAtivas)
-router.get('/pessoas/:id',PessoaController.pegaUmaPessoa)
-router.post('/pessoas',PessoaController.criarPessoa)
-router.put('/pessoas/:id',PessoaController.atualizarPessoa)
-router.delete('/pessoas/:id',PessoaController.deletarPessoa)
-router.post('/pessoas/:id/restaura',PessoaController.restauraPessoa)
-router.get('/pessoas/:estudanteId/matricula/:matriculaId',  PessoaController.pegaUmaMatricula)
-router.post('/pessoas/:estudanteId/matricula', PessoaController.criaMatricula)
-router.put('/pessoas/:estudanteId/matricula/:matriculaId',  PessoaController.atualizaMatricula)
-router.delete('/pessoas/:estudanteId/matricula/:matriculaId',  PessoaController.apagaMatricula)
 
 module.exports = router
